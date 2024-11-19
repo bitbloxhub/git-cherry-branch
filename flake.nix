@@ -53,7 +53,12 @@
           # TODO: change this to your crate's path
           nci.projects.${crateName}.path = ./.;
           # configure crates
-          nci.crates.${crateName} = { };
+          nci.crates.${crateName} = {
+            depsDrvConfig.mkDerivation = {
+              nativeBuildInputs = [ pkgs.pkg-config ];
+              buildInputs = with pkgs; [ perl ];
+            };
+          };
           nci.toolchains = {
             mkShell = _: toolchain;
             mkBuild = _: toolchain;
